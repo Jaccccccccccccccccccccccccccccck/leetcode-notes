@@ -100,7 +100,25 @@
 - 对每个桶文件进行重复值统计，若数据量仍然很大，无法在内存中排序，重复上述的三个步骤；若数据量较小，可以在内存中计算，直接几个桶中的计数
 - 在每个桶中最大重复的计数对比，得到重复量最大的文件
 
+**选择第k大的元素**：快速选择排序，最小堆排序
+
 [大量数据的排序问题](https://www.cnblogs.com/end/archive/2011/06/01/2067207.html)
+
+leetcode 相关题目
+
+排序类（Sort）：
+
+基础知识：快速排序（Quick Sort）， 归并排序（Merge Sort）的原理与代码实现。需要能讲明白代码中每一行的目的。快速排序时间复杂度平均状态下O（NlogN），空间复杂度O（1），归并排序最坏情况下时间复杂度O（NlogN），空间复杂度O（N）
+入门题目：
+~~Leetcode 148. Sort List~~
+~~Leetcode 56. Merge Intervals~~
+~~Leetcode 27. Remove elements~~
+进阶题目：
+~~Leetcode 179. Largest Number~~
+~~Leetcode 75. Sort Colors~~
+~~Leetcode 215. Kth Largest Element （可以用堆的解法替代）~~
+~~ELeetcode 4. Median of Two Sorted Arrays~~
+注意：后两题是与快速排序非常相似的快速选择（Quick Select）算法，面试中很常考
 
 
 冒泡排序
@@ -222,6 +240,37 @@ quickSort(int[] nums, int start, int end) {
         quickSort(nums, pivot, start, pivot-1);
         quickSort(nums, pivot, pivot+1, end);
     }
+}
+```
+快速选择排序
+```
+int partition(vector<int>& nums, int start, int end) {
+    int pivot = nums[end];
+    int i = start - 1;
+    for(int j = start; j < end; j++) {
+        if(nums[j] < pivot) {
+            i++;
+            swap(nums[i], nums[j]);
+        }
+    }
+    swap(nums[i+1], nums[end]);
+    return i + 1;
+}
+
+int findKthLargest(vector<int>& nums, int k) {
+    k = nums.size() - k;
+    int start = 0, end = nums.size() - 1;
+    while(start < end) {
+        int pivot = partition(nums, start, end);
+        if(pivot < k) {
+            start = pivot + 1;
+        } else if(pivot > k) {
+            end = pivot - 1;
+        } else {
+            return nums[k];
+        }
+    }
+    return nums[k];
 }
 ```
 堆排序
