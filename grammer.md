@@ -13,7 +13,7 @@ struct Ratio {
 ```
 
 #### lambda表达式
-[capture list] (parameter list) -> return type { function body }
+[capture list] (parameter list) throw() -> return type { function body }
 - capture list: lambda所在函数定义的局部变量的列表（通常为空）
 - parameter list/return type/fucntion 与正常函数相同
 - 常常简写中不写 -> return type，返回类型可以表达式推断出来: [](parameter list) {function body}
@@ -42,6 +42,16 @@ auto com = [](pair<int, int> &a, pair<int, int> &b) {
 };
 priority_queue<pair<int, int>, vector<pair<int, int>>, decltype(com)> pq(com);
 ```
+
+struct cmp {
+    bool operator()(const A &a1, const A &a2) {
+        if(a1.xxx < a2.xxx) {
+            return false;
+        }
+    } 
+}
+
+priority_queue<A, vector<A>, cmp> pq;
 
 #### sort函数的反序
 ```

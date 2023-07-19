@@ -42,4 +42,4 @@ Leetcode 1043 Partition Array for Maximum Sum
 Leetcode 926 Flip String to Monotone Increasing
 
 #### todo
-字符串经典问题：
+字符串经典问题：KMP算法
